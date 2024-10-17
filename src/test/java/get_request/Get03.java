@@ -31,7 +31,7 @@ public class Get03 {
      */
 
     @Test
-    public void get03() {
+    public void get03HardAssertion() {
 
         //1- Set the URL
         RestAssured.baseURI = "https://petstore.swagger.io/v2";
@@ -47,11 +47,38 @@ public class Get03 {
                 .then()
                 .statusCode(200)
                 .contentType("application/json")
-                .body("name", containsString("Beagle"))
+                .body("name", containsString("Beagles"))
                 .body("status", equalTo("available"))
-                .body("category.name", equalTo("Dog"))
+                .body("category.name", equalTo("Dogs"))
                 .body("tags[0].name", equalTo("Golden"));
 
 
     }
+
+    @Test
+    public void get03SoftAssertion() {
+
+        //1- Set the URL
+        RestAssured.baseURI = "https://petstore.swagger.io/v2";
+        RestAssured.basePath = "/pet/2113";
+
+
+        //2- Set the expected data
+
+        //3- Send the request and get the response
+        given().
+                when().
+                get()
+                .then()
+                .statusCode(200)
+                .contentType("application/json")
+                .body("name", containsString("Beagles")
+                        , "status", equalTo("available")
+                        , "category.name", equalTo("Dogs")
+                        , "tags[0].name", equalTo("Golden"));
+
+
+    }
+
+
 }
