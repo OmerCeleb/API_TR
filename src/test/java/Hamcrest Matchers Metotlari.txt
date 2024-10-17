@@ -1,0 +1,2 @@
+- containsString(): Bir dizenin baska bir dizeyi icerip icermedigini kontrol eder
+-
