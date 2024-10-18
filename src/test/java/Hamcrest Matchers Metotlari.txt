@@ -1,2 +1,3 @@
 - containsString(): Bir dizenin baska bir dizeyi icerip icermedigini kontrol eder
--
+- hasSize():
+- hasItem():
