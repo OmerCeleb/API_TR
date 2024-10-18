@@ -59,11 +59,11 @@ public class Get05 extends PetStoreBaseUrl {
                 .body("id", hasItem(2113))
                 .body("name", hasItem("Beagle"))
                 .body("name", hasItems("Beagle", "Doggie", "Fish"))
-                .body("id", hasSize(greaterThan(500)))
+                .body("id", hasSize(greaterThan(100)))
                 .body("id", hasSize(lessThan((500))))
                 .body("[0].category.id", equalTo(0))
-                .body("[0].photoUrls", equalTo("string"))
-                .body("[0].tag.id", equalTo(0));
+                .body("[0].photoUrls[0]", equalTo("string"))
+                .body("[0].tags[0].id", equalTo(0));
 
 
     }
