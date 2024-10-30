@@ -6,6 +6,9 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -66,4 +69,35 @@ public class Post02 extends JsonPlaceHolderBaseUrl {
         assertFalse(jsonPath.getBoolean("completed"));
 
     }
+
+    @Test
+    public void post02Map() {
+
+        // Set the URL
+        spec.pathParam("first", "todos");
+
+        // Set the expected data (payload)
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("userId", 55);
+        payload.put("title", "Tidy your room");
+        payload.put("completed", false);
+        System.out.println(payload);
+
+        // Send the request and get the response
+        // Serialization Java datalarinin JSON datalarina dönusturulmesi
+        Response response = given(spec).body(payload).when().post("{first}");
+        response.prettyPrint();
+
+        // Do Assertion
+        // De - Serialization JSON datanin Java datasina dönusturulmesi
+        Map<String, Object> actualData = response.as(HashMap.class);
+
+
+        assertEquals(201, response.statusCode());
+        assertEquals(payload.get("userId"), actualData.get("userId"));
+        assertEquals(payload.get("title"), actualData.get("title"));
+        assertEquals(payload.get("completed"), actualData.get("completed"));
+
+    }
+
 }
