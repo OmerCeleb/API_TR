@@ -4,6 +4,7 @@ import baseUrl.HerokuAppBaseUrl;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
+import test_data.HerokuAppTestData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -92,17 +93,9 @@ public class Get10 extends HerokuAppBaseUrl {
         spec.pathParams("first", "booking", "second", 91);
 
         // Set the expected data
-        Map<String, String> bookingsDatesData = new HashMap<>();
-        bookingsDatesData.put("checkin", "2018-01-01");
-        bookingsDatesData.put("checkout", "2019-01-01");
-
-        Map<String, Object> expactedData = new HashMap<>();
-        expactedData.put("firstname", "Jane");
-        expactedData.put("lastname", "Doe");
-        expactedData.put("totalprice", 111);
-        expactedData.put("depositpaid", true);
-        expactedData.put("bookingdates", bookingsDatesData);
-        expactedData.put("additionalneeds", "Extra pillows please");
+        HerokuAppTestData obj = new HerokuAppTestData();
+        Map<String, String> bookingsDatesData = obj.getBookingDates("2018-01-01", "2019-01-01");
+        Map<String, Object> expactedData = obj.getPayload("Jane", "Doe", 111, true, bookingsDatesData, "Extra pillows please");
 
         // Send the request and get the response
         Response response = given(spec).when().get("{first}/{second}");
