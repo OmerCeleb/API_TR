@@ -1,5 +1,8 @@
 package pojos.jsonplaceholder;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class JsonPlaceHolderPojo {
 
     // 1. Private variable olustur
