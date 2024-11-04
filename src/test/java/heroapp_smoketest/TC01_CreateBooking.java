@@ -48,6 +48,8 @@ public class TC01_CreateBooking extends HerokuAppBaseUrl {
             }
      */
 
+    public static int bookingId;
+
     @Test
     public void createBooking() {
         spec.pathParam("first", "booking");
@@ -56,7 +58,7 @@ public class TC01_CreateBooking extends HerokuAppBaseUrl {
         BookingPojo payload = new BookingPojo("Jim", "Brown", 111, true, bookingDates, "Breakfast");
 
         Response response = given(spec).body(payload).when().post("{first}");
-        response.prettyPrint();
+        bookingId = response.jsonPath().getInt("bookingid");
 
         BookingResponsePojo actualData = response.as(BookingResponsePojo.class);
         assertEquals(200, response.statusCode());
@@ -64,8 +66,8 @@ public class TC01_CreateBooking extends HerokuAppBaseUrl {
         assertEquals(payload.getLastname(), actualData.getBooking().getLastname());
         assertEquals(payload.getTotalprice(), actualData.getBooking().getTotalprice());
         assertEquals(payload.getDepositpaid(), actualData.getBooking().getDepositpaid());
-        assertEquals(bookingDates.getCheckIn(),actualData.getBooking().getBookingDatesPojo().getCheckIn());
-        assertEquals(bookingDates.getCheckout(),actualData.getBooking().getBookingDatesPojo().getCheckout());
+        assertEquals(bookingDates.getCheckIn(), actualData.getBooking().getBookingDatesPojo().getCheckIn());
+        assertEquals(bookingDates.getCheckout(), actualData.getBooking().getBookingDatesPojo().getCheckout());
         assertEquals(payload.getAdditionalneeds(), actualData.getBooking().getAdditionalneeds());
 
     }

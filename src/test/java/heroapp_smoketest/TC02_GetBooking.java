@@ -6,6 +6,7 @@ import org.junit.Test;
 import pojos.herokuapp.BookingDatesPojo;
 import pojos.herokuapp.BookingPojo;
 
+import static heroapp_smoketest.TC01_CreateBooking.bookingId;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 
@@ -36,12 +37,13 @@ public class TC02_GetBooking extends HerokuAppBaseUrl {
 
     @Test
     public void getBooking() {
-        spec.pathParams("first", "booking", "second", 1);
+        spec.pathParams("first", "booking", "second", bookingId);
 
         BookingDatesPojo bookingDates = new BookingDatesPojo("2018-01-01", "2019-01-01");
         BookingPojo expectedData = new BookingPojo("Jim", "Brown", 111, true, bookingDates, "Breakfast");
 
         Response response = given(spec).when().get("{first}/{second}");
+
 
         BookingPojo actualData = response.as(BookingPojo.class);
         assertEquals(200, response.statusCode());
@@ -49,8 +51,8 @@ public class TC02_GetBooking extends HerokuAppBaseUrl {
         assertEquals(expectedData.getLastname(), actualData.getLastname());
         assertEquals(expectedData.getTotalprice(), actualData.getTotalprice());
         assertEquals(expectedData.getDepositpaid(), actualData.getDepositpaid());
-        assertEquals(expectedData.getBookingDatesPojo().getCheckIn(), actualData.getBookingDatesPojo().getCheckIn());
-        assertEquals(expectedData.getBookingDatesPojo().getCheckout(), actualData.getBookingDatesPojo().getCheckout());
+        assertEquals(bookingDates.getCheckIn(), actualData.getBookingDatesPojo().getCheckIn());
+        assertEquals(bookingDates.getCheckout(), actualData.getBookingDatesPojo().getCheckout());
         assertEquals(expectedData.getAdditionalneeds(), actualData.getAdditionalneeds());
 
 
