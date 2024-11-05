@@ -26,6 +26,11 @@ public class BookingPojo {
         this.additionalneeds = additionalneeds;
     }
 
+    public BookingPojo(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
     public String getFirstname() {
         return firstname;
     }

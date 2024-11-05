@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 public class AuthenticationHorekuApp {
 
 
-    public static String generateToken() {
+    public static String generateTokenH() {
 
         String body = "{\n" +
                 "    \"username\": \"admin\",\n" +

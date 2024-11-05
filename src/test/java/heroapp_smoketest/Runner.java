@@ -7,7 +7,9 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(
         {
                 TC01_CreateBooking.class,
-                TC02_GetBooking.class
+                TC02_GetBooking.class,
+                TC03_UpdateBooking.class,
+                TC04_ParcaliUpdateBooking.class
         }
 )
 public class Runner {
