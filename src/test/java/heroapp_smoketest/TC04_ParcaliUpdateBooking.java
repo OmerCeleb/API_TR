@@ -5,6 +5,10 @@ import io.restassured.response.Response;
 import org.junit.Test;
 import pojos.herokuapp.BookingDatesPojo;
 import pojos.herokuapp.BookingPojo;
+import test_data.HerokuAppTestData;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static heroapp_smoketest.TC01_CreateBooking.bookingId;
 import static io.restassured.RestAssured.given;
@@ -43,22 +47,15 @@ public class TC04_ParcaliUpdateBooking extends HerokuAppBaseUrl {
     public void parcaliUpdate() {
         spec.pathParams("first", "booking", "second", bookingId);
 
-        BookingPojo payload = new BookingPojo("Ömer", "Brown");
-        BookingDatesPojo bookingDatesPojo = new BookingDatesPojo("2018-01-01", "2019-01-01");
-        BookingPojo expectedData = new BookingPojo("Ömer", "Brown", 111, true, bookingDatesPojo, "Breakfast");
+        HerokuAppTestData obj = new HerokuAppTestData();
+        Map<String, Object> payload = obj.getPayload("Ömer", "Celebi", null, null, null, null);
 
         Response response = given(spec).body(payload).when().patch("{first}/{second}");
         response.prettyPrint();
 
-        BookingPojo actualData = response.as(BookingPojo.class);
+        Map<String, Object> actualData = response.as(HashMap.class);
         assertEquals(200, response.statusCode());
-        assertEquals(payload.getFirstname(), actualData.getFirstname());
-        assertEquals(payload.getLastname(), actualData.getLastname());
-        assertEquals(payload.getTotalprice(), actualData.getTotalprice());
-        assertEquals(payload.getDepositpaid(), actualData.getDepositpaid());
-        assertEquals(bookingDatesPojo.getCheckIn(), actualData.getBookingDatesPojo().getCheckIn());
-        assertEquals(bookingDatesPojo.getCheckout(), actualData.getBookingDatesPojo().getCheckout());
-        assertEquals(payload.getAdditionalneeds(), actualData.getAdditionalneeds());
-
+        assertEquals(payload.get("firstname"), actualData.get("firstname"));
+        assertEquals(payload.get("lastname"), actualData.get("lastname"));
     }
 }
