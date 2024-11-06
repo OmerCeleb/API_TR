@@ -5,7 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Before;
 
-import static utils.AuthenticationContactList.generateToken;
+import static utils.AuthenticationGMIBank.generateTokenBANK;
 
 public class GMIBankBaseUrl {
 
@@ -16,7 +16,7 @@ public class GMIBankBaseUrl {
         spec = new RequestSpecBuilder()
                 .setBaseUri("https://gmibank.com")
                 .setContentType(ContentType.JSON)
-                .addHeader("Authorization", "Bearer " + generateToken())
+                .addHeader("Authorization", "Bearer " + generateTokenBANK())
                 .build();
 
     }

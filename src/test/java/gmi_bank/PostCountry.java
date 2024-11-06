@@ -1,12 +1,16 @@
 package gmi_bank;
 
 import baseUrl.GMIBankBaseUrl;
+import io.restassured.response.Response;
 import org.junit.Test;
 import pojos.gmibank.CountryPojo;
 import pojos.gmibank.StatesPojo;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
 
 public class PostCountry extends GMIBankBaseUrl {
 
@@ -91,7 +95,20 @@ public class PostCountry extends GMIBankBaseUrl {
 
         CountryPojo payload = new CountryPojo("Muz Cumhuriyeti", stateList);
 
+        // Send the request and get the response
+        Response response = given(spec).body(payload).when().post("{first}/{second}");
+        response.prettyPrint();
 
+        // Do assertion
+        CountryPojo actualData = response.as(CountryPojo.class);
+        assertEquals(201, response.statusCode());
+        assertEquals(payload.getName(), actualData.getName());
+        assertEquals(state1.getId(), actualData.getStates().get(0).getId());
+        assertEquals(state1.getName(), actualData.getStates().get(0).getName());
+        assertEquals(state2.getId(), actualData.getStates().get(1).getId());
+        assertEquals(state2.getName(), actualData.getStates().get(1).getName());
+        assertEquals(state3.getId(), actualData.getStates().get(2).getId());
+        assertEquals(state3.getName(), actualData.getStates().get(2).getName());
 
     }
 }
