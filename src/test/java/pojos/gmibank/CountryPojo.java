@@ -1,23 +1,30 @@
 package pojos.gmibank;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.io.Serializable;
-import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class CountryPojo implements Serializable {
+
+    private int id;
 
     private String name;
 
-    private List<StatesPojo> states;
+    private String states;
+
+    public CountryPojo(int id, String name, String states) {
+        this.id = id;
+        this.name = name;
+        this.states = states;
+    }
 
     public CountryPojo() {
     }
 
-    public CountryPojo(String name, List<StatesPojo> states) {
-        this.name = name;
-        this.states = states;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -28,19 +35,20 @@ public class CountryPojo implements Serializable {
         this.name = name;
     }
 
-    public List<StatesPojo> getStates() {
+    public String getStates() {
         return states;
     }
 
-    public void setStates(List<StatesPojo> states) {
+    public void setStates(String states) {
         this.states = states;
     }
 
     @Override
     public String toString() {
         return "CountryPojo{" +
-                "name='" + name + '\'' +
-                ", states=" + states +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", states='" + states + '\'' +
                 '}';
     }
 }

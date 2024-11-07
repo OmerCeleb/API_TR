@@ -1,8 +1,15 @@
 package gmi_bank;
 
+import baseUrl.GMIBankBaseUrl;
 import org.junit.Test;
+import pojos.gmibank.AccountPojo;
+import pojos.gmibank.CountryPojo;
+import pojos.gmibank.UserPojo;
 
-public class GetCustomer {
+import java.util.ArrayList;
+import java.util.List;
+
+public class GetCustomer extends GMIBankBaseUrl {
 
     /*
             Given
@@ -80,11 +87,26 @@ public class GetCustomer {
                     "id": 0,
                     "name": "string",
                     "
+
+                    CustomerPojo
+                    CountryPojo
+                    AccountPojo
+                    StatesPojo
      */
 
     @Test
     public void getCustomer() {
         // Set the expected data
+        spec.pathParams("first", "tp-customers", "second", "133986");
+
+        CountryPojo country = new CountryPojo(187679, "Banana", null);
+        UserPojo userPojo = new UserPojo(134701, "raymundo.moen", "Danika", "Huel", "danikahuel@gmail.com", true, "en", null, null);
+        AccountPojo account1 = new AccountPojo(12481, "Description", 0, "CHEKING", "ACTIVE", "2022-01-04T21:00:00Z", "2022-01-04T21:00:00Z", null, null);
+        AccountPojo account2 = new AccountPojo(131776, "mfy", 546846, "CREDIT_CARD", "ACTIVE", "2022-01-18T21:00:00Z", "2022-01-18T21:00:00Z", null, null);
+
+        List<AccountPojo> accountPojoList = new ArrayList<>();
+        accountPojoList.add(account1);
+        accountPojoList.add(account2);
 
 
     }
